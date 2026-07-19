@@ -25,6 +25,9 @@ $(DIST): $(SRCDIR)/underscore.elv $(shell find $(SRCDIR)/scripts -type f)
 clean:
 	@rm -rf $(DIST)
 
+check:
+	@prove -v
+
 install: all
 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/underscore/scripts
 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/zsh/site-functions
@@ -38,4 +41,4 @@ uninstall:
 	rm -rf $(DESTDIR)$(PREFIX)/share/underscore
 	rm -f $(DESTDIR)$(PREFIX)/share/zsh/site-functions/_underscore
 
-.PHONY: clean install uninstall
+.PHONY: clean check install uninstall
