@@ -2,6 +2,8 @@
 
 A collection of wrappers for commonly used commands, available through an underscore.
 
+These scripts are either cutomizations or expansions of existing shell commands.
+
 ## Examples
 
 ```sh

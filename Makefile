@@ -12,6 +12,7 @@ INSTALL_DATA_DIR = cp -r
 all: $(DIST)
 
 $(DIST): $(SRCDIR)/underscore.elv $(shell find $(SRCDIR)/scripts -type f)
+	elvish -compileonly $^
 	@mkdir -p $@/bin $@/share/underscore $@/share/zsh/site-functions
 	install -m 755 $< $@/bin/underscore
 	cp -r $(SRCDIR)/scripts $@/share/underscore
@@ -32,4 +33,9 @@ install: all
 	$(INSTALL_DATA_DIR) $(DIST)/share/underscore $(DESTDIR)$(PREFIX)/share
 	$(INSTALL_DATA) $(DIST)/share/zsh/site-functions/_underscore $(DESTDIR)$(PREFIX)/share/zsh/site-functions
 
-.PHONY: clean completions install
+uninstall:
+	rm -f $(DESTDIR)$(PREFIX)/bin/underscore
+	rm -rf $(DESTDIR)$(PREFIX)/share/underscore
+	rm -f $(DESTDIR)$(PREFIX)/share/zsh/site-functions/_underscore
+
+.PHONY: clean install uninstall
