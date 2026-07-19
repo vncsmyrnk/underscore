@@ -1,0 +1,34 @@
+# vim: set ft=sh:
+
+function underscore() {
+  local ipc_file
+  ipc_file=$(mktemp -p "${XDG_RUNTIME_DIR:-/tmp}" underscore_wd.XXXXXX)
+
+  local fd_wd
+  exec {fd_wd}>"$ipc_file"
+
+  export UNDERSCORE_IPC_CWD="$ipc_file"
+
+  # shellcheck disable=SC2154
+  if ! (($+commands[underscore])); then
+    echo "underscore executable is not available. Make sure it is properly installed." >&2
+    return 1
+  fi
+
+  command underscore "$@"
+  local script_status=$?
+
+  if [[ $script_status -eq 0 ]] && [[ -s "$ipc_file" ]]; then
+    if ! \cd "$(cat "$ipc_file" || echo '.')"; then
+      echo "failed to change working dir." >&2
+    fi
+  fi
+
+  rm -f "$ipc_file"
+  unset UNDERSCORE_IPC_CWD
+  exec {fd_wd}>&-
+
+  return $script_status
+}
+
+alias _="underscore"

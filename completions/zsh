@@ -1,0 +1,74 @@
+#compdef underscore
+
+# vim: set ft=sh:
+
+function _underscore_git_worktree() {
+  local context state state_descr line
+  typeset -A opt_args
+
+  local -a choices
+  choices=(
+    'cd'
+  )
+  _describe 'commands' choices
+}
+
+function _underscore_git() {
+  local context state state_descr line
+  typeset -A opt_args
+  local ret=1
+
+  _arguments -C \
+    '1: :->action' \
+    '*:: :->args' && ret=0
+
+  case $state in
+  action)
+    local -a choices
+    choices=(
+      'worktree'
+    )
+    _describe 'commands' choices && ret=0
+    ;;
+  args)
+    case $line[1] in
+    worktree)
+      _underscore_git_worktree "$@" && ret=0
+      ;;
+    esac
+    ;;
+  esac
+
+  return ret
+}
+
+function _underscore() {
+  local context state state_descr line
+  typeset -A opt_args
+  local ret=1
+
+  _arguments -C \
+    '1: :->action' \
+    '*:: :->args' && ret=0
+
+  case $state in
+  action)
+    local -a choices
+    choices=(
+      'git'
+    )
+    _describe 'commands' choices && ret=0
+    ;;
+  args)
+    case $line[1] in
+    git)
+      _underscore_git "$@" && ret=0
+      ;;
+    esac
+    ;;
+  esac
+
+  return ret
+}
+
+compdef _underscore underscore
