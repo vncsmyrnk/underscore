@@ -10,6 +10,10 @@ These scripts are either cutomizations or expansions of existing shell commands.
 _ git worktree cd # Change working dir into any available worktree dir
 ```
 
+## Dependencies
+
+- [elvish](https://elv.sh/)
+
 ## Install
 
 ```sh
