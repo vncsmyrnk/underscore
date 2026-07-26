@@ -39,7 +39,7 @@
             ./Makefile
             ./entrypoints
             ./completions
-            ./underscore.elv
+            ./underscore
             ./t
           ];
         };

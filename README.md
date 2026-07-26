@@ -19,6 +19,5 @@ _ git worktree cd # Change working dir into any available worktree dir
 ## Install
 
 ```sh
-make
 sudo make install
 ```

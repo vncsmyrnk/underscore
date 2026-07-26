@@ -1,6 +1,5 @@
 #!/usr/bin/env elvish
-
-# Restrict path
+# vim: set ft=elvish:
 
 use str
 use path
