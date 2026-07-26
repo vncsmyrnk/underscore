@@ -28,5 +28,5 @@ for arg $args {
   set i = (+ $i 1)
 }
 
-echo "No script found." >&2
+echo "no script found." >&2
 exit 1

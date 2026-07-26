@@ -40,7 +40,7 @@ fn test-no-script-found {
   rm -rf $tmp
 
   tap:assert-expected $run[reason][exit-status] 1
-  tap:assert-expected $run-stderr 'No script found.'
+  tap:assert-expected $run-stderr 'no script found.'
 }
 
 fn run-tests {
