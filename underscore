@@ -5,6 +5,13 @@ use str
 use path
 use os
 
+if (== (count $args) 0) {
+  echo "A collection of wrappers for commonly used commands."
+  echo "\nUsage: underscore <SUBCOMMANDS> [FLAGS]"
+  echo "\nSubcommands: git init"
+  exit 1
+}
+
 var share-path = (path:dir (path:abs (src)[name]))'/../share/underscore'
 set-env UNDERSCORE_DATA_DIR $share-path
 
