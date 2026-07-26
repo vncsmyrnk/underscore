@@ -1,5 +1,3 @@
-#!/usr/bin/env elvish
-
 var fzf-flags = '--height=~10'
 
 if (not (has-env UNDERSCORE_IPC_CWD)) {
