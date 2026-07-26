@@ -1,5 +1,4 @@
 #!/usr/bin/env elvish
-
 # vim: set ft=elvish:
 
 use path
@@ -21,8 +20,7 @@ fn test-executes-matching-script {
   var tmp = (setup-fixture)
 
   mkdir -p $tmp'/share/underscore/scripts/some/command'
-  echo '#!'$runtime:elvish-path >$tmp'/share/underscore/scripts/some/command/here.elv'
-  echo 'echo $args[0] >'$tmp'/forwarded.txt' >>$tmp'/share/underscore/scripts/some/command/here.elv'
+  echo 'echo $@args >'$tmp'/forwarded.txt' >>$tmp'/share/underscore/scripts/some/command/here.elv'
   chmod 755 $tmp'/share/underscore/scripts/some/command/here.elv'
 
   var run = ?(elvish $tmp'/bin/underscore' some command here foo bar)

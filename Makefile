@@ -17,10 +17,11 @@ check:
 
 install: all
 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/zsh/site-functions
+	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/underscore
 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/bin
 	$(INSTALL_PROGRAM) $(SRCDIR)/underscore $(DESTDIR)$(PREFIX)/bin
-	$(INSTALL_DATA_DIR) $(SRCDIR)/entrypoints $(DESTDIR)$(PREFIX)/share
-	$(INSTALL_DATA_DIR) $(SRCDIR)/scripts $(DESTDIR)$(PREFIX)/share
+	$(INSTALL_DATA_DIR) $(SRCDIR)/entrypoints $(DESTDIR)$(PREFIX)/share/underscore
+	$(INSTALL_DATA_DIR) $(SRCDIR)/scripts $(DESTDIR)$(PREFIX)/share/underscore
 	$(INSTALL_DATA) $(SRCDIR)/entrypoints/zsh $(DESTDIR)$(PREFIX)/share/zsh/site-functions
 
 uninstall:

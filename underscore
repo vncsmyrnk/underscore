@@ -3,15 +3,20 @@
 
 use str
 use path
+use os
 
-var scripts-path = (path:dir (path:abs (src)[name]))'/../share/underscore/scripts'
+var share-path = (path:dir (path:abs (src)[name]))'/../share/underscore'
+set-env UNDERSCORE_DATA_DIR $share-path
+
+var scripts-path = $share-path$path:separator'scripts'
 
 var i = 1
 var script-path = $scripts-path
 for arg $args {
-  set script-path = $script-path'/'$arg
-  if ?(test -x $script-path'.elv') {
-    exec elvish $script-path'.elv' (str:join " " $args[$i..])
+  set script-path = $script-path$path:separator$arg
+  if (os:is-regular &follow-symlink $script-path'.elv') {
+    var remaining-args = (put $args[$i..])
+    exec elvish $script-path'.elv' $@remaining-args
   }
   set i = (+ $i 1)
 }

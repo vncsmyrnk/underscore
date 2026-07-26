@@ -62,7 +62,7 @@
         ];
 
         preCheck = ''
-          patchShebangs t/ scripts/
+          patchShebangs t/
           export XDG_DATA_DIRS="${elvish-tap}/share:''${XDG_DATA_DIRS:-}"
         '';
       };
@@ -74,6 +74,7 @@
           perl
           yq
           elvish-tap
+          default
         ];
       };
     in
