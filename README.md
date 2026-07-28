@@ -21,3 +21,9 @@ _ git worktree cd # Change working dir into any available worktree dir
 ```sh
 sudo make install # or `nix profile add github:vncsmyrnk/underscore`
 ```
+
+## Running tests
+
+```sh
+nix develop --command make check
+```
