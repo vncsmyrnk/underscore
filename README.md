@@ -19,5 +19,5 @@ _ git worktree cd # Change working dir into any available worktree dir
 ## Install
 
 ```sh
-sudo make install
+sudo make install # or `nix profile add github:vncsmyrnk/underscore`
 ```
