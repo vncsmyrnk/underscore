@@ -20,9 +20,9 @@ install: all
 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/underscore
 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/bin
 	$(INSTALL_PROGRAM) $(SRCDIR)/underscore $(DESTDIR)$(PREFIX)/bin
-	$(INSTALL_DATA_DIR) $(SRCDIR)/entrypoints $(DESTDIR)$(PREFIX)/share/underscore
+	$(INSTALL_DATA_DIR) $(SRCDIR)/shell $(DESTDIR)$(PREFIX)/share/underscore
 	$(INSTALL_DATA_DIR) $(SRCDIR)/scripts $(DESTDIR)$(PREFIX)/share/underscore
-	$(INSTALL_DATA) $(SRCDIR)/entrypoints/zsh $(DESTDIR)$(PREFIX)/share/zsh/site-functions
+	$(INSTALL_DATA) $(SRCDIR)/completions/zsh $(DESTDIR)$(PREFIX)/share/zsh/site-functions/_underscore
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/underscore

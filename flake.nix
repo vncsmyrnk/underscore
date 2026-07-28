@@ -37,7 +37,7 @@
           fileset = pkgs.lib.fileset.unions [
             ./scripts
             ./Makefile
-            ./entrypoints
+            ./shell
             ./completions
             ./underscore
             ./t
@@ -76,6 +76,10 @@
           elvish-tap
           default
         ];
+
+        shellHook = ''
+          export ZDOTDIR="${default}/share/underscore/shell/rc"
+        '';
       };
     in
     {

@@ -13,7 +13,8 @@ var share-path = (get-env UNDERSCORE_DATA_DIR)
 
 var shell = $args[0]
 if (eq $shell "zsh") {
-  exec cat $share-path$path:separator'entrypoints'$path:separator'zsh'
+  var zsh-rc = $share-path$path:separator'shell'$path:separator'entrypoint'$path:separator'zsh'
+  exec cat $zsh-rc
 }
 
 fail "invalid shell."
