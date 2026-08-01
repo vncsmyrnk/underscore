@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "description": "Show installation details for locally installed AUR packages.",
+  "steps": [
+    {
+      "type": "source", // marks this step as a "producer". This command's STDOUT will be passed along as the next step's STDIN
+      "command": [
+        "pacman",
+        "-Qqm"
+      ]
+    },
+    {
+      "type": "transform", // marks this step as a "consumer", specific to choosing one or more entries of the previous "producer". Receives the previous step STDOUT as STDIN and echos the choices as STDOUT
+      "command": [
+        "xargs",
+        "pacman",
+        "-Qi"
+      ]
+    },
+    {
+      "type": "transform", // a second transform step, evaluated concurrently as part of the streamed process chain
+      "command": [
+        "xargs",
+        "pacman",
+        "-Qi"
+      ]
+    },
+    {
+      "type": "transform", // a third transform step
+      "command": [
+        "grep",
+        "-E",
+        "'^(Name|Install Date)'"
+      ]
+    },
+    {
+      "type": "transform", // a fourth transform step, reaching the default limit configured by UNDERSCORE_MAX_TRANSFORMS
+      "command": [
+        "paste",
+        "-",
+        "-"
+      ]
+    }
+  ] // with no terminal command or effect, the pipeline's output is written to stdout
+}

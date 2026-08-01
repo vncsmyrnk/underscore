@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "description": "Open an encrypted mapping, then mount its filesystem.",
+  "defaults": { // default values accessible via $VAR_NAME in commands and overridable with --var-name
+    "SRC": "/path/to/src",
+    "TARGET_NAME": "name",
+    "TARGET_PATH": "/path/to/target"
+  },
+  "steps": [
+    {
+      "type": "requisite", // if this step fails the pipeline is aborted
+      "become": true, // execute with root privileges (etymology: Ansible)
+      "command": [
+        "cryptsetup",
+        "open",
+        "$SRC",
+        "$TARGET_NAME"
+      ]
+    }
+  ],
+  "become": true,
+  "command": [ // primary command and the wrapper intended final command
+    "mount",
+    "/dev/mapper/$TARGET_NAME",
+    "$TARGET_PATH"
+  ]
+}

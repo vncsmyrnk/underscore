@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "description": "Run a trusted command with secrets loaded by SOPS.",
+  "defaults": { // default values accessible via $VAR_NAME in commands and overridable with --var-name
+    "SECRETS_PATH": "/path/to/secrets",
+    "COMMAND": "env"
+  },
+  "trusted": [ // risk annotation for a value interpreted by the downstream program
+    "COMMAND"
+  ],
+  "steps": [], // steps can be empty or null. They can never exceed 5 items
+  "command": [ // primary command and the wrapper intended final command
+    "sops",
+    "exec-env",
+    "$SECRETS_PATH",
+    "$COMMAND"
+  ]
+}

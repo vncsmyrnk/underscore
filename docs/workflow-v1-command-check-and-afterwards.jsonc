@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "description": "Unmount a filesystem when idle, then close its encrypted mapping.",
+  "defaults": { // default values accessible via $VAR_NAME in commands and overridable with --var-name
+    "TARGET_NAME": "name",
+    "TARGET_PATH": "/path/to/target"
+  },
+  "steps": [
+    {
+      "type": "requisite", // if this step fails the pipeline is aborted
+      "invert": true, // makes the check fail if a successful exit code is returned
+      "command": [
+        "fuser",
+        "-s",
+        "-m",
+        "$TARGET_PATH" // usage of a variable
+      ]
+    },
+    {
+      "type": "afterwards", // runs only after the primary command or effect was executed
+      "become": true, // execute with root privileges (etymology: Ansible)
+      "command": [
+        "cryptsetup",
+        "close",
+        "$TARGET_NAME" // usage of a variable
+      ]
+    }
+  ],
+  "become": true,
+  "command": [ // primary command and the wrapper intended final command
+    "umount",
+    "$TARGET_PATH"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "description": "Choose a Git worktree and change the parent shell to its directory.",
+  "steps": [
+    {
+      "type": "source", // marks this step as a "producer". This command's STDOUT will be passed along as the next step's STDIN
+      "command": [
+        "git",
+        "worktree",
+        "list"
+      ]
+    },
+    {
+      "type": "transform", // interactive filters are transforms: stdin comes from the source and the selection is written to stdout
+      "command": [
+        "fzf",
+        "--delimiter",
+        "\\s+[0-9a-f]+\\s+",
+        "--accept-nth=1"
+      ]
+    }
+  ],
+  "effect": "cd" // shell-effect: uses the first line of the pipeline's STDOUT into the current shell's `cd` command
+}
