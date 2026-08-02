@@ -10,6 +10,7 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      go = pkgs.go_1_26;
 
       elvish-tap = pkgs.stdenv.mkDerivation {
         pname = "elvish-tap";
@@ -37,6 +38,9 @@
           fileset = pkgs.lib.fileset.unions [
             ./scripts
             ./Makefile
+            ./.golangci.yml
+            ./go.mod
+            ./internal
             ./shell
             ./completions
             ./underscore
@@ -44,9 +48,21 @@
           ];
         };
 
-        nativeBuildInputs = with pkgs; [ elvish ];
+        nativeBuildInputs = with pkgs; [
+          elvish
+          go
+          gotools
+          golangci-lint
+          zsh
+        ];
 
-        buildInputs = with pkgs; [ elvish ];
+        buildInputs = with pkgs; [
+          elvish
+          go
+          gotools
+          golangci-lint
+          zsh
+        ];
 
         installPhase = ''
           make install PREFIX=$out
@@ -56,8 +72,12 @@
         nativeCheckInputs = with pkgs; [
           coreutils
           elvish
+          go
+          gotools
+          golangci-lint
           perl
           yq
+          zsh
           elvish-tap
         ];
 
@@ -71,14 +91,17 @@
         packages = with pkgs; [
           coreutils
           elvish
+          go
+          gotools
+          golangci-lint
           perl
           yq
+          zsh
           elvish-tap
-          default
         ];
 
         shellHook = ''
-          export ZDOTDIR="${default}/share/underscore/shell/rc"
+          export ZDOTDIR="$PWD/shell/rc"
         '';
       };
     in
