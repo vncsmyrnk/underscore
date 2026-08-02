@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "description": "Show installation details for locally installed AUR packages.",
+  "steps": [
+    {
+      "type": "source",
+      "command": [
+        "pacman",
+        "-Qqm"
+      ]
+    },
+    {
+      "type": "transform",
+      "command": [
+        "xargs",
+        "pacman",
+        "-Qi"
+      ]
+    },
+    {
+      "type": "transform",
+      "command": [
+        "xargs",
+        "pacman",
+        "-Qi"
+      ]
+    },
+    {
+      "type": "transform",
+      "command": [
+        "grep",
+        "-E",
+        "'^(Name|Install Date)'"
+      ]
+    },
+    {
+      "type": "transform",
+      "command": [
+        "paste",
+        "-",
+        "-"
+      ]
+    }
+  ]
+}

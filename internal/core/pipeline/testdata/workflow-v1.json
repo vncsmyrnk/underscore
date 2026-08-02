@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "description": "Choose a Git worktree and change the parent shell to its directory.",
+  "steps": [
+    {
+      "type": "source",
+      "command": [
+        "git",
+        "worktree",
+        "list"
+      ]
+    },
+    {
+      "type": "transform",
+      "command": [
+        "fzf",
+        "--delimiter",
+        "\\s+[0-9a-f]+\\s+",
+        "--accept-nth=1"
+      ]
+    }
+  ],
+  "effect": "cd"
+}

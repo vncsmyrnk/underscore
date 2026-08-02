@@ -11,13 +11,15 @@ linters:
     - govet
     - ineffassign
     - staticcheck
-
-linters-settings:
-  depguard:
-    rules:
-      no-cmd-imports:
-        files:
-          - "!cmd/**"
-        deny:
-          - pkg: github.com/vncsmyrnk/underscore/cmd
-            desc: command entry points must only be referenced from composition roots
+  settings:
+    depguard:
+      rules:
+        no-cmd-imports:
+          files:
+            - "!cmd/**"
+          allow:
+            - $gostd
+            - github.com/vncsmyrnk/underscore/internal
+          deny:
+            - pkg: github.com/vncsmyrnk/underscore/cmd
+              desc: command entry points must only be referenced from composition roots

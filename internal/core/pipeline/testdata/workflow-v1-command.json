@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "description": "Open an encrypted mapping, then mount its filesystem.",
+  "defaults": {
+    "SRC": "/path/to/src",
+    "TARGET_NAME": "name",
+    "TARGET_PATH": "/path/to/target"
+  },
+  "steps": [
+    {
+      "type": "requisite",
+      "become": true,
+      "command": [
+        "cryptsetup",
+        "open",
+        "$SRC",
+        "$TARGET_NAME"
+      ]
+    }
+  ],
+  "become": true,
+  "command": [
+    "mount",
+    "/dev/mapper/$TARGET_NAME",
+    "$TARGET_PATH"
+  ]
+}

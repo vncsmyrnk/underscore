@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "description": "Unmount a filesystem when idle, then close its encrypted mapping.",
+  "defaults": {
+    "TARGET_NAME": "name",
+    "TARGET_PATH": "/path/to/target"
+  },
+  "steps": [
+    {
+      "type": "requisite",
+      "invert": true,
+      "command": [
+        "fuser",
+        "-s",
+        "-m",
+        "$TARGET_PATH"
+      ]
+    },
+    {
+      "type": "afterwards",
+      "become": true,
+      "command": [
+        "cryptsetup",
+        "close",
+        "$TARGET_NAME"
+      ]
+    }
+  ],
+  "become": true,
+  "command": [
+    "umount",
+    "$TARGET_PATH"
+  ]
+}

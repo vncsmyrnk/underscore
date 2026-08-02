@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "description": "Run a trusted command with secrets loaded by SOPS.",
+  "defaults": {
+    "SECRETS_PATH": "/path/to/secrets",
+    "COMMAND": "env"
+  },
+  "trusted": [
+    "COMMAND"
+  ],
+  "steps": [],
+  "command": [
+    "sops",
+    "exec-env",
+    "$SECRETS_PATH",
+    "$COMMAND"
+  ]
+}
