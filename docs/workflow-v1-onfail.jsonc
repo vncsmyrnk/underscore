@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "description": "Sets workspaces",
+  "defaults": {
+    "TARGET_NAME": "name",
+    "TARGET_PATH": "/path/to/target",
+  },
+  "steps": [
+    {
+      "type": "requisite",
+      "become": true,
+      "command": [
+        "underscore", // flags are automatically passed forward when `underscore` is used anywhere
+        "crypt-mnt",
+      ],
+    },
+    {
+      "type": "onfail", // executes when any step fails until (and including) the primary command is executed or the shell effect gets called
+      "become": true,
+      "command": ["underscore", "crypt-umnt"],
+    },
+    {
+      "type": "afterwards",
+      "command": ["ssh-add", "~/.ssh/id_ed25519"],
+    },
+    {
+      "type": "afterwards", // multiple afterwards steps can be set (mayne the only one to be restricted is `source`?)
+      "command": ["gnome-extensions", "enable", "argos@pew.worldwidemann.com"],
+    },
+  ],
+  "command": ["stow", "-d", "$TARGET_PATH", "-t", "$HOME"],
+}
